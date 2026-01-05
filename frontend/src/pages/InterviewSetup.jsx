@@ -7,7 +7,7 @@ export default function InterviewSetup() {
   const [selectedLanguage, setSelectedLanguage] = useState("C");
   const [resumeFile, setResumeFile] = useState(null);
 
-  const navigate = useNavigate(); // ✅ correct place
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-white">
@@ -93,13 +93,42 @@ export default function InterviewSetup() {
           </select>
         )}
 
+        {/* ✅ Resume Upload with Button */}
         {mode === "resume" && (
-          <input
-            type="file"
-            accept=".pdf,.doc,.docx"
-            onChange={(e) => setResumeFile(e.target.files[0])}
-            className="w-full mb-6 p-2 border border-gray-300 rounded-md"
-          />
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
+              Upload Resume
+            </label>
+
+            <div className="flex items-center gap-4">
+              {/* Hidden input */}
+              <input
+                type="file"
+                id="resumeUpload"
+                accept=".pdf,.doc,.docx"
+                onChange={(e) => setResumeFile(e.target.files[0])}
+                className="hidden"
+              />
+
+              {/* Custom button */}
+              <label
+                htmlFor="resumeUpload"
+                className="
+                  cursor-pointer px-5 py-2.5 rounded-lg
+                  bg-gray-100 text-gray-700 text-sm font-medium
+                  hover:bg-gray-200 transition
+                  border border-gray-300
+                "
+              >
+                Choose Resume
+              </label>
+
+              {/* File name */}
+              <span className="text-sm text-gray-500 truncate max-w-[200px]">
+                {resumeFile ? resumeFile.name : "No file chosen"}
+              </span>
+            </div>
+          </div>
         )}
 
         {/* Start Button */}
